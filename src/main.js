@@ -213,4 +213,5 @@ $("resetPrompt").addEventListener("click", () => {
 });
 
 loadPrompt();
+console.log("API key eindigt op:", GEMINI_API_KEY ? GEMINI_API_KEY.slice(-3) : "NIET GEVONDEN");
 startConversation();
