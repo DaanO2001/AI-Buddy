@@ -1,0 +1,16 @@
+{
+  "name": "AI-Buddy",
+  "short_name": "AI-Buddy",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#111324",
+  "theme_color": "#111324",
+  "icons": [
+    {
+      "src": "/App-icoon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
