@@ -51,8 +51,44 @@ let systemPrompt = DEFAULT_PROMPT;
 let history = [];
 let currentStep = 1;
 const TOTAL_STEPS = 6;
+let appPassword = '';
 
 const $ = (id) => document.getElementById(id);
+
+/* ---------- Login ---------- */
+function initLogin() {
+  const btn = $("loginBtn");
+  const input = $("passwordInput");
+
+  async function tryLogin() {
+    const pw = input.value.trim();
+    if (!pw) return;
+    btn.disabled = true;
+    btn.textContent = 'Bezig…';
+
+    const res = await fetch("/api/chat", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ password: pw, checkOnly: true, contents: [], systemPrompt: '' })
+    });
+
+    if (res.status === 401) {
+      $("loginError").textContent = "Onjuist wachtwoord.";
+      btn.disabled = false;
+      btn.textContent = 'Inloggen';
+      return;
+    }
+
+    appPassword = pw;
+    $("loginScreen").classList.add("hidden");
+    $("app").classList.remove("hidden");
+    loadPrompt();
+    startConversation();
+  }
+
+  btn.addEventListener("click", tryLogin);
+  input.addEventListener("keydown", (e) => { if (e.key === "Enter") tryLogin(); });
+}
 
 function loadPrompt() {
   try {
@@ -132,7 +168,7 @@ async function sendToGemini(isOpening) {
     const res = await fetch("/api/chat", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ contents, systemPrompt })
+      body: JSON.stringify({ contents, systemPrompt, password: appPassword })
     });
     const data = await res.json();
     hideTyping();
@@ -205,5 +241,4 @@ $("resetPrompt").addEventListener("click", () => {
   $("promptArea").value = DEFAULT_PROMPT;
 });
 
-loadPrompt();
-startConversation();
+initLogin();

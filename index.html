@@ -226,10 +226,45 @@
   .btn-save { background: var(--accent); color: #fff; }
   .btn-reset { background: #1c1f38; color: #c9cce6; border: 1px solid #2c2f4c !important; }
   .hidden { display: none !important; }
+
+  /* ---------- Login ---------- */
+  #loginScreen {
+    position: fixed; inset: 0;
+    background: var(--bg);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 16px; padding: 32px;
+    z-index: 100;
+  }
+  #loginScreen h2 { color: #fff; margin: 0; font-size: 22px; font-weight: 700; }
+  #loginScreen p { color: var(--label); margin: 0; font-size: 14px; text-align: center; }
+  #loginScreen input {
+    width: 100%; max-width: 320px;
+    background: #1c1f38; border: 1px solid #2c2f4c;
+    border-radius: 99px; padding: 13px 18px;
+    color: #fff; font-size: 15.5px; outline: none;
+    text-align: center; letter-spacing: 2px;
+  }
+  #loginScreen input::placeholder { letter-spacing: 0; color: #6b6f8a; }
+  #loginBtn {
+    width: 100%; max-width: 320px;
+    border: none; border-radius: 99px; padding: 14px;
+    background: var(--accent); color: #fff;
+    font-size: 16px; font-weight: 700; cursor: pointer;
+  }
+  #loginError { color: var(--accent); font-size: 13px; min-height: 18px; }
 </style>
 </head>
 <body>
-<div id="app">
+<div id="loginScreen">
+  <h2>AI-Buddy</h2>
+  <p>Voer het wachtwoord in om verder te gaan</p>
+  <input id="passwordInput" type="password" placeholder="Wachtwoord" autocomplete="off">
+  <button id="loginBtn">Inloggen</button>
+  <span id="loginError"></span>
+</div>
+
+<div id="app" class="hidden">
 
   <!-- Instellingen (verborgen tot je op het tandwiel klikt) -->
   <div class="settings hidden" id="settings">

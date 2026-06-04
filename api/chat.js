@@ -3,7 +3,15 @@ module.exports = async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const { contents, systemPrompt } = req.body;
+  const { contents, systemPrompt, password, checkOnly } = req.body;
+
+  if (process.env.APP_PASSWORD && password !== process.env.APP_PASSWORD) {
+    return res.status(401).json({ error: 'Ongeldig wachtwoord' });
+  }
+
+  if (checkOnly) {
+    return res.status(200).json({ ok: true });
+  }
 
   if (!process.env.GROQ_API_KEY) {
     return res.status(500).json({ error: 'GROQ_API_KEY is not configured' });
