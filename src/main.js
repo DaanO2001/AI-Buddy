@@ -52,6 +52,7 @@ let history = [];
 let currentStep = 1;
 const TOTAL_STEPS = 6;
 let appPassword = '';
+let apiEnabled = true;
 
 const $ = (id) => document.getElementById(id);
 
@@ -164,6 +165,13 @@ async function sendToGemini(isOpening) {
     contents.push({ role: "user", parts: [{ text: "Start het gesprek volgens stap 1 (De Opening)." }] });
   }
 
+  if (!apiEnabled) {
+    hideTyping();
+    addBubble("[TEST] API staat uit. Dit is een nep-antwoord. [STEP:1]", "ai");
+    reEnable();
+    return;
+  }
+
   try {
     const res = await fetch("/api/chat", {
       method: "POST",
@@ -220,8 +228,13 @@ $("msgInput").addEventListener("keydown", (e) => {
   if (e.key === "Enter") { e.preventDefault(); handleSend(); }
 });
 
+$("apiToggle").addEventListener("change", (e) => {
+  apiEnabled = e.target.checked;
+});
+
 $("openSettings").addEventListener("click", () => {
   $("promptArea").value = systemPrompt;
+  $("apiToggle").checked = apiEnabled;
   $("settings").classList.remove("hidden");
 });
 $("closeSettings").addEventListener("click", () => {
