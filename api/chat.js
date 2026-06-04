@@ -1,10 +1,4 @@
 module.exports = async function handler(req, res) {
-  console.log('Functie aangeroepen');
-  console.log('API key aanwezig:', !!process.env.GEMINI_API_KEY);
-  if (process.env.GEMINI_API_KEY) {
-    console.log('API key eindigt op:', process.env.GEMINI_API_KEY.slice(-3));
-  }
-
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
