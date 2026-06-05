@@ -306,17 +306,14 @@ $("resetPrompt").addEventListener("click", () => {
   $("promptArea").value = DEFAULT_PROMPT;
 });
 
-/* Keyboard fix op mobiel: padding-bottom aanpassen aan toetsenbordhoogte */
+/* Keyboard fix op mobiel: app hoogte aanpassen aan visual viewport */
 if (window.visualViewport) {
-  window.visualViewport.addEventListener("resize", () => {
-    const keyboardHeight = window.innerHeight - window.visualViewport.height;
-    $("chat").style.paddingBottom = (keyboardHeight + 80) + "px";
+  const applyViewport = () => {
+    $("app").style.height = window.visualViewport.height + "px";
     scrollDown();
-  });
+  };
+  window.visualViewport.addEventListener("resize", applyViewport);
+  applyViewport();
 }
-
-$("msgInput").addEventListener("blur", () => {
-  $("chat").style.paddingBottom = "16px";
-});
 
 initLogin();
