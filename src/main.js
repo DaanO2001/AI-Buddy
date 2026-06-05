@@ -307,13 +307,6 @@ $("resetPrompt").addEventListener("click", () => {
 });
 
 /* Keyboard fix op mobiel: scroll naar laatste bericht als toetsenbord opent */
-if (window.visualViewport) {
-  window.visualViewport.addEventListener("resize", () => {
-    $("app").style.height = window.visualViewport.height + 'px';
-    setTimeout(scrollDown, 100);
-  });
-}
-
 $("msgInput").addEventListener("focus", () => {
   setTimeout(scrollDown, 350);
 });
