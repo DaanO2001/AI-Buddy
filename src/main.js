@@ -306,14 +306,16 @@ $("resetPrompt").addEventListener("click", () => {
   $("promptArea").value = DEFAULT_PROMPT;
 });
 
-/* Keyboard fix op mobiel: app krimpt mee zodat composer altijd zichtbaar blijft */
+/* Keyboard fix op mobiel: scroll naar laatste bericht als toetsenbord opent */
 if (window.visualViewport) {
-  const app = $("app");
   window.visualViewport.addEventListener("resize", () => {
-    const offset = window.innerHeight - window.visualViewport.height;
-    app.style.transform = `translateY(-${offset}px)`;
-    scrollDown();
+    $("app").style.height = window.visualViewport.height + 'px';
+    setTimeout(scrollDown, 100);
   });
 }
+
+$("msgInput").addEventListener("focus", () => {
+  setTimeout(scrollDown, 350);
+});
 
 initLogin();
