@@ -306,9 +306,16 @@ $("resetPrompt").addEventListener("click", () => {
   $("promptArea").value = DEFAULT_PROMPT;
 });
 
-/* Keyboard fix op mobiel: scroll naar laatste bericht als toetsenbord opent */
+/* Keyboard fix op mobiel: scroll naar laatste bericht als toetsenbord klaar is */
 $("msgInput").addEventListener("focus", () => {
-  setTimeout(scrollDown, 350);
+  if (window.visualViewport) {
+    const onResize = () => {
+      scrollDown();
+      window.visualViewport.removeEventListener("resize", onResize);
+    };
+    window.visualViewport.addEventListener("resize", onResize);
+  }
+  setTimeout(scrollDown, 400);
 });
 
 initLogin();
