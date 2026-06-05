@@ -306,14 +306,17 @@ $("resetPrompt").addEventListener("click", () => {
   $("promptArea").value = DEFAULT_PROMPT;
 });
 
-/* Keyboard fix op mobiel: app hoogte aanpassen aan visual viewport */
+/* Keyboard fix op mobiel */
+window.addEventListener("scroll", () => window.scrollTo(0, 0), { passive: false });
+
 if (window.visualViewport) {
-  const applyViewport = () => {
+  window.visualViewport.addEventListener("resize", () => {
     $("app").style.height = window.visualViewport.height + "px";
-    scrollDown();
-  };
-  window.visualViewport.addEventListener("resize", applyViewport);
-  applyViewport();
+    window.scrollTo(0, 0);
+    setTimeout(scrollDown, 50);
+  });
 }
+
+$("msgInput").addEventListener("focus", () => setTimeout(scrollDown, 400));
 
 initLogin();
