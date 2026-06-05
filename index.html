@@ -247,6 +247,27 @@
   .btn-save { background: var(--accent); color: #fff; }
   .btn-reset { background: #1c1f38; color: #c9cce6; border: 1px solid #2c2f4c !important; }
   .hidden { display: none !important; }
+
+  /* ---------- Andere stijl ---------- */
+  #app.theme-alt {
+    --bg: #1d1e1b;
+    --ai-bubble: #ffffff;
+    --ai-text: #1d1e1b;
+    --me-bubble: #3d1a08;
+    --me-text: #f5d5c5;
+    --accent: #d6521e;
+    --track: #3a2a22;
+    --label: #8a7060;
+    background: linear-gradient(180deg, #1d1e1b 0%, #111210 100%);
+  }
+  #app.theme-alt header { background: #1d1e1b; }
+  #app.theme-alt .back,
+  #app.theme-alt .gear { border-color: #3a2a22; color: #c4a99a; }
+  #app.theme-alt .me .bubble .bubble-header { color: #b08070; }
+  #app.theme-alt .settings { background: #1d1e1b; }
+  #app.theme-alt .settings textarea,
+  #app.theme-alt .toggle-row,
+  #app.theme-alt .btn-reset { background: #2a1e18; border-color: #3a2a22 !important; }
   .toggle-row {
     display: flex; align-items: center; justify-content: space-between;
     background: #1c1f38; border: 1px solid #2c2f4c; border-radius: 12px;
@@ -319,6 +340,13 @@
       <span>API inschakelen</span>
       <label class="toggle">
         <input type="checkbox" id="apiToggle" checked>
+        <span class="toggle-slider"></span>
+      </label>
+    </div>
+    <div class="toggle-row">
+      <span>Andere stijl</span>
+      <label class="toggle">
+        <input type="checkbox" id="themeToggle">
         <span class="toggle-slider"></span>
       </label>
     </div>
