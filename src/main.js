@@ -306,16 +306,17 @@ $("resetPrompt").addEventListener("click", () => {
   $("promptArea").value = DEFAULT_PROMPT;
 });
 
-/* Keyboard fix op mobiel: scroll naar laatste bericht als toetsenbord klaar is */
-$("msgInput").addEventListener("focus", () => {
-  if (window.visualViewport) {
-    const onResize = () => {
-      scrollDown();
-      window.visualViewport.removeEventListener("resize", onResize);
-    };
-    window.visualViewport.addEventListener("resize", onResize);
-  }
-  setTimeout(scrollDown, 400);
+/* Keyboard fix op mobiel: padding-bottom aanpassen aan toetsenbordhoogte */
+if (window.visualViewport) {
+  window.visualViewport.addEventListener("resize", () => {
+    const keyboardHeight = window.innerHeight - window.visualViewport.height;
+    $("chat").style.paddingBottom = (keyboardHeight + 80) + "px";
+    scrollDown();
+  });
+}
+
+$("msgInput").addEventListener("blur", () => {
+  $("chat").style.paddingBottom = "16px";
 });
 
 initLogin();
