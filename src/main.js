@@ -306,17 +306,17 @@ $("resetPrompt").addEventListener("click", () => {
   $("promptArea").value = DEFAULT_PROMPT;
 });
 
-/* Keyboard fix op mobiel */
-window.addEventListener("scroll", () => window.scrollTo(0, 0), { passive: false });
-
+/* Keyboard fix op mobiel: padding-bottom aanpassen aan toetsenbordhoogte */
 if (window.visualViewport) {
   window.visualViewport.addEventListener("resize", () => {
-    $("app").style.height = window.visualViewport.height + "px";
-    window.scrollTo(0, 0);
-    setTimeout(scrollDown, 50);
+    const keyboardHeight = window.innerHeight - window.visualViewport.height;
+    $("chat").style.paddingBottom = (keyboardHeight + 80) + "px";
+    scrollDown();
   });
 }
 
-$("msgInput").addEventListener("focus", () => setTimeout(scrollDown, 400));
+$("msgInput").addEventListener("blur", () => {
+  $("chat").style.paddingBottom = "16px";
+});
 
 initLogin();
