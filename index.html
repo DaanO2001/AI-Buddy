@@ -250,8 +250,8 @@
   .btn-reset { background: #1c1f38; color: #c9cce6; border: 1px solid #2c2f4c !important; }
   .hidden { display: none !important; }
 
-  /* ---------- Andere stijl ---------- */
-  #app.theme-alt {
+  /* ---------- Guyiday stijl ---------- */
+  #app.theme-gd {
     --bg: #1d1e1b;
     --ai-bubble: #ffffff;
     --ai-text: #1d1e1b;
@@ -262,14 +262,65 @@
     --label: #8a7060;
     background: linear-gradient(180deg, #1d1e1b 0%, #111210 100%);
   }
-  #app.theme-alt header { background: #1d1e1b; }
-  #app.theme-alt .back,
-  #app.theme-alt .gear { border-color: #3a2a22; color: #c4a99a; }
-  #app.theme-alt .me .bubble .bubble-header { color: #b08070; }
-  #app.theme-alt .settings { background: #1d1e1b; }
-  #app.theme-alt .settings textarea,
-  #app.theme-alt .toggle-row,
-  #app.theme-alt .btn-reset { background: #2a1e18; border-color: #3a2a22 !important; }
+  #app.theme-gd header { background: #1d1e1b; }
+  #app.theme-gd .back,
+  #app.theme-gd .gear { border-color: #3a2a22; color: #c4a99a; }
+  #app.theme-gd .me .bubble .bubble-header { color: #b08070; }
+  #app.theme-gd .settings { background: #1d1e1b; }
+  #app.theme-gd .settings textarea,
+  #app.theme-gd .toggle-row,
+  #app.theme-gd .btn-reset { background: #2a1e18; border-color: #3a2a22 !important; }
+
+  /* ---------- White Label stijl ---------- */
+  #app.theme-wl {
+    --bg: #DFE1E1;
+    --ai-bubble: #F7F9FA;
+    --ai-text: #1a2e24;
+    --me-bubble: #86CDAC;
+    --me-text: #0f2b1d;
+    --accent: #52B788;
+    --track: #B5CFBE;
+    --label: #6a8a7a;
+    background: linear-gradient(180deg, #DFE1E1 0%, #F7F9FA 100%);
+  }
+  #app.theme-wl header { background: #DFE1E1; }
+  #app.theme-wl header h1 { color: #1a2e24; }
+  #app.theme-wl .back,
+  #app.theme-wl .gear { border-color: #B5CFBE; color: #3a5a4a; }
+  #app.theme-wl .me .bubble .bubble-header { color: #3a6a52; }
+  #app.theme-wl .settings { background: #DFE1E1; }
+  #app.theme-wl .settings h2 { color: #1a2e24; }
+  #app.theme-wl .settings label { color: #3a5a4a; }
+  #app.theme-wl .settings .hint { color: #6a8a7a; }
+  #app.theme-wl .toggle-row span { color: #3a5a4a; }
+  #app.theme-wl .settings textarea { color: #1a2e24; }
+  #app.theme-wl .settings textarea,
+  #app.theme-wl .toggle-row,
+  #app.theme-wl .btn-reset { background: #F0F2F2; border-color: #B5CFBE !important; }
+  #app.theme-wl .composer input { background: #FBFCFD; }
+
+  /* ---------- Stijl-kiezer ---------- */
+  .theme-picker {
+    display: flex;
+    gap: 8px;
+  }
+  .theme-btn {
+    flex: 1;
+    border: 1.5px solid #2c2f4c;
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    background: #1c1f38;
+    color: #c9cce6;
+    transition: background .15s, color .15s, border-color .15s;
+  }
+  .theme-btn.active {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+  }
   .toggle-row {
     display: flex; align-items: center; justify-content: space-between;
     background: #1c1f38; border: 1px solid #2c2f4c; border-radius: 12px;
@@ -351,6 +402,10 @@
         <input type="checkbox" id="themeToggle">
         <span class="toggle-slider"></span>
       </label>
+    </div>
+    <div class="theme-picker hidden" id="themePicker">
+      <button class="theme-btn" id="themeGD">GD</button>
+      <button class="theme-btn" id="themeWL">WL</button>
     </div>
     <label for="promptArea">Prompt (instructies voor Sam)</label>
     <textarea id="promptArea" spellcheck="false"></textarea>
