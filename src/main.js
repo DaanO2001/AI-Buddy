@@ -341,17 +341,16 @@ $("resetPrompt").addEventListener("click", () => {
   $("promptArea").value = DEFAULT_PROMPT;
 });
 
-/* Keyboard fix op mobiel: padding-bottom aanpassen aan toetsenbordhoogte */
+/* Keyboard fix: kramp #app in tot de zichtbare viewport zodat header en chat bovenaan blijven */
 if (window.visualViewport) {
   window.visualViewport.addEventListener("resize", () => {
-    const keyboardHeight = window.innerHeight - window.visualViewport.height;
-    $("chat").style.paddingBottom = (keyboardHeight + 80) + "px";
+    $("app").style.height = window.visualViewport.height + "px";
     scrollDown();
   });
 }
 
 $("msgInput").addEventListener("blur", () => {
-  $("chat").style.paddingBottom = "16px";
+  $("app").style.height = "";
 });
 
 initLogin();
