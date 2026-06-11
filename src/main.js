@@ -341,5 +341,17 @@ $("resetPrompt").addEventListener("click", () => {
   $("promptArea").value = DEFAULT_PROMPT;
 });
 
+if (window.visualViewport) {
+  window.visualViewport.addEventListener("resize", () => {
+    const keyboardHeight = window.innerHeight - window.visualViewport.height;
+    $("app").style.bottom = keyboardHeight + "px";
+    scrollDown();
+  });
+}
+
+$("msgInput").addEventListener("blur", () => {
+  $("app").style.bottom = "0px";
+});
+
 
 initLogin();
