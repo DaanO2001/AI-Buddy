@@ -341,16 +341,5 @@ $("resetPrompt").addEventListener("click", () => {
   $("promptArea").value = DEFAULT_PROMPT;
 });
 
-/* Keyboard fix: kramp #app in tot de zichtbare viewport zodat header en chat bovenaan blijven */
-if (window.visualViewport) {
-  window.visualViewport.addEventListener("resize", () => {
-    $("app").style.height = window.visualViewport.height + "px";
-    scrollDown();
-  });
-}
-
-$("msgInput").addEventListener("blur", () => {
-  $("app").style.height = "";
-});
 
 initLogin();
