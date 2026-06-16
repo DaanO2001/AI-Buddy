@@ -65,12 +65,15 @@ BELANGRIJKE SPREEK- EN FORMATTING-INSTRUCTIE:
 - Schrijf NOOIT zelf "Stap X" in je zichtbare tekst voor de gebruiker.`;
 
 const STORAGE_KEY = "aibuddy_prompt";
+const PRESENTATIE_KEY = "aibuddy_presentatie";
 let systemPrompt = DEFAULT_PROMPT;
 let history = [];
 let currentStep = 1;
 const TOTAL_STEPS = 6;
 let appPassword = '';
 let apiEnabled = true;
+let presentatieMode = false;
+try { presentatieMode = localStorage.getItem(PRESENTATIE_KEY) === "1"; } catch (e) {}
 
 const $ = (id) => document.getElementById(id);
 
@@ -201,9 +204,29 @@ function updateProgress(step) {
   $("progressFill").style.width = (currentStep / TOTAL_STEPS) * 100 + "%";
 }
 
+function showRestartButton() {
+  if ($("restartWrap")) return;
+  const wrap = document.createElement("div");
+  wrap.id = "restartWrap";
+  wrap.style.cssText = "display:flex;justify-content:center;padding:20px 0 8px;";
+  const btn = document.createElement("button");
+  btn.textContent = "Nieuw gesprek starten";
+  btn.style.cssText = "border:none;border-radius:99px;padding:13px 28px;background:var(--accent);color:#fff;font-size:15px;font-weight:700;cursor:pointer;";
+  btn.addEventListener("click", startConversation);
+  wrap.appendChild(btn);
+  $("chat").appendChild(wrap);
+  scrollDown();
+}
+
 function extractStep(text) {
   const m = text.match(/\[STEP:\s*(\d)\s*\]/i);
-  if (m) updateProgress(parseInt(m[1], 10));
+  if (m) {
+    const step = parseInt(m[1], 10);
+    updateProgress(step);
+    if (step === 6 && presentatieMode) {
+      setTimeout(showRestartButton, 600);
+    }
+  }
   return text.replace(/\[STEP:\s*\d\s*\]/ig, "").trim();
 }
 
@@ -323,9 +346,18 @@ $("themeWL").addEventListener("click", () => {
   updateThemeBtns("wl");
 });
 
+$("presentatieToggle").addEventListener("change", (e) => {
+  presentatieMode = e.target.checked;
+  try {
+    if (presentatieMode) localStorage.setItem(PRESENTATIE_KEY, "1");
+    else localStorage.removeItem(PRESENTATIE_KEY);
+  } catch (err) {}
+});
+
 $("openSettings").addEventListener("click", () => {
   $("promptArea").value = systemPrompt;
   $("apiToggle").checked = apiEnabled;
+  $("presentatieToggle").checked = presentatieMode;
   const theme = localStorage.getItem("aibuddy_theme");
   $("themeToggle").checked = !!theme;
   if (theme) {
