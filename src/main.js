@@ -1,5 +1,5 @@
 import SAM_IMG from '../ft/Sam.png';
-import JIJ_IMG from '../ft/Jij.png';
+import JIJ_IMG from '../ft/Jij-Yanick (Digitale Bazen).png';
 import SAM_GD_IMG from '../ft/Sam (Guyiday).png';
 import JIJ_GD_IMG from '../ft/Jij (Guyiday).png';
 import SAM_WL_IMG from '../ft/Sam (White Label).png';
